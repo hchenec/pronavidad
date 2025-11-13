@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirigiendo...</title>
+  <script>
+    async function go() {
+      const code = window.location.pathname.slice(1);
+
+      if (!code) {
+        document.body.innerHTML = "<h1>Acortador activo</h1><p>Añade un código en la URL.</p>";
+        return;
+      }
+
+      const res = await fetch("redirects.json");
+      const redirects = await res.json();
+
+      if (redirects[code]) {
+        window.location.href = redirects[code];
+      } else {
+        document.body.innerHTML = "<h1>Enlace no encontrado</h1>";
+      }
+    }
+    go();
+  </script>
+</head>
+<body>
+  Redirigiendo...
+</body>
+</html>
